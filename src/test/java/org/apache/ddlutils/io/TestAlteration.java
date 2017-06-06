@@ -1717,18 +1717,14 @@ public class TestAlteration extends TestAgainstLiveDatabaseBase
             "  </table>\n" +
             "</database>";
 
-        createDatabase(modelXml);
+        final Database currentModel = createDatabase(modelXml);
 
-        Properties props   = getTestProperties();
-        String     catalog = props.getProperty(DDLUTILS_CATALOG_PROPERTY);
-        String     schema  = props.getProperty(DDLUTILS_SCHEMA_PROPERTY);
-        Database   model   = parseDatabaseFromString(modelXml);
+        final Database   model   = parseDatabaseFromString(modelXml);
 
         getPlatform().setSqlCommentsOn(false);
 
-        String alterationSql = getPlatform().getAlterTablesSql(catalog, schema, null, model);
+        getPlatform().alterModel(currentModel, model, true);
 
-        assertEqualsIgnoringWhitespaces("", alterationSql);
     }
 
     /**

@@ -129,7 +129,7 @@ public class TestDatatypes extends TestAgainstLiveDatabaseBase
         
         assertTrue((dataSql != null) && (dataSql.length() > 0));
 
-        getPlatform().dropTables(getModel(), false);
+        getPlatform().dropModel(getModel(), false);
 
         createDatabase(modelXml);
 

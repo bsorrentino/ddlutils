@@ -52,82 +52,11 @@ public class PlatformUtils
 {
     // Extended drivers that support more than one database
 
-    /** The DataDirect Connect DB2 jdbc driver. */
-    public static final String JDBC_DRIVER_DATADIRECT_DB2        = "com.ddtek.jdbc.db2.DB2Driver";
-    /** The DataDirect Connect SQLServer jdbc driver. */
-    public static final String JDBC_DRIVER_DATADIRECT_SQLSERVER  = "com.ddtek.jdbc.sqlserver.SQLServerDriver";
-    /** The DataDirect Connect Oracle jdbc driver. */
-    public static final String JDBC_DRIVER_DATADIRECT_ORACLE     = "com.ddtek.jdbc.oracle.OracleDriver";
-    /** The DataDirect Connect Sybase jdbc driver. */
-    public static final String JDBC_DRIVER_DATADIRECT_SYBASE     = "com.ddtek.jdbc.sybase.SybaseDriver";
-    /** The i-net DB2 jdbc driver. */
-    public static final String JDBC_DRIVER_INET_DB2              = "com.inet.drda.DRDADriver";
-    /** The i-net Oracle jdbc driver. */
-    public static final String JDBC_DRIVER_INET_ORACLE           = "com.inet.ora.OraDriver";
-    /** The i-net SQLServer jdbc driver. */
-    public static final String JDBC_DRIVER_INET_SQLSERVER        = "com.inet.tds.TdsDriver";
-    /** The i-net Sybase jdbc driver. */
-    public static final String JDBC_DRIVER_INET_SYBASE           = "com.inet.syb.SybDriver";
-    /** The i-net pooled jdbc driver for SQLServer and Sybase. */
-    public static final String JDBC_DRIVER_INET_POOLED           = "com.inet.pool.PoolDriver";
-    /** The JNetDirect SQLServer jdbc driver. */
-    public static final String JDBC_DRIVER_JSQLCONNECT_SQLSERVER = "com.jnetdirect.jsql.JSQLDriver";
-    /** The jTDS jdbc driver for SQLServer and Sybase. */
-    public static final String JDBC_DRIVER_JTDS                  = "net.sourceforge.jtds.jdbc.Driver";
-
-    /** The subprotocol used by the DataDirect DB2 driver. */
-    public static final String JDBC_SUBPROTOCOL_DATADIRECT_DB2            = "datadirect:db2";
-    /** The subprotocol used by the DataDirect SQLServer driver. */
-    public static final String JDBC_SUBPROTOCOL_DATADIRECT_SQLSERVER      = "datadirect:sqlserver";
-    /** The subprotocol used by the DataDirect Oracle driver. */
-    public static final String JDBC_SUBPROTOCOL_DATADIRECT_ORACLE         = "datadirect:oracle";
-    /** The subprotocol used by the DataDirect Sybase driver. */
-    public static final String JDBC_SUBPROTOCOL_DATADIRECT_SYBASE         = "datadirect:sybase";
-    /** The subprotocol used by the i-net DB2 driver. */
-    public static final String JDBC_SUBPROTOCOL_INET_DB2                  = "inetdb2";
-    /** The subprotocol used by the i-net Oracle driver. */
-    public static final String JDBC_SUBPROTOCOL_INET_ORACLE               = "inetora";
-    /** A subprotocol used by the i-net SQLServer driver. */
-    public static final String JDBC_SUBPROTOCOL_INET_SQLSERVER            = "inetdae";
-    /** A subprotocol used by the i-net SQLServer driver. */
-    public static final String JDBC_SUBPROTOCOL_INET_SQLSERVER6           = "inetdae6";
-    /** A subprotocol used by the i-net SQLServer driver. */
-    public static final String JDBC_SUBPROTOCOL_INET_SQLSERVER7           = "inetdae7";
-    /** A subprotocol used by the i-net SQLServer driver. */
-    public static final String JDBC_SUBPROTOCOL_INET_SQLSERVER7A          = "inetdae7a";
-    /** A subprotocol used by the pooled i-net SQLServer driver. */
-    public static final String JDBC_SUBPROTOCOL_INET_SQLSERVER_POOLED_1   = "inetpool:inetdae";
-    /** A subprotocol used by the pooled i-net SQLServer driver. */
-    public static final String JDBC_SUBPROTOCOL_INET_SQLSERVER6_POOLED_1  = "inetpool:inetdae6";
-    /** A subprotocol used by the pooled i-net SQLServer driver. */
-    public static final String JDBC_SUBPROTOCOL_INET_SQLSERVER7_POOLED_1  = "inetpool:inetdae7";
-    /** A subprotocol used by the pooled i-net SQLServer driver. */
-    public static final String JDBC_SUBPROTOCOL_INET_SQLSERVER7A_POOLED_1 = "inetpool:inetdae7a";
-    /** A subprotocol used by the pooled i-net SQLServer driver. */
-    public static final String JDBC_SUBPROTOCOL_INET_SQLSERVER_POOLED_2   = "inetpool:jdbc:inetdae";
-    /** A subprotocol used by the pooled i-net SQLServer driver. */
-    public static final String JDBC_SUBPROTOCOL_INET_SQLSERVER6_POOLED_2  = "inetpool:jdbc:inetdae6";
-    /** A subprotocol used by the pooled i-net SQLServer driver. */
-    public static final String JDBC_SUBPROTOCOL_INET_SQLSERVER7_POOLED_2  = "inetpool:jdbc:inetdae7";
-    /** A subprotocol used by the pooled i-net SQLServer driver. */
-    public static final String JDBC_SUBPROTOCOL_INET_SQLSERVER7A_POOLED_2 = "inetpool:jdbc:inetdae7a";
-    /** The subprotocol used by the i-net Sybase driver. */
-    public static final String JDBC_SUBPROTOCOL_INET_SYBASE               = "inetsyb";
-    /** The subprotocol used by the pooled i-net Sybase driver. */
-    public static final String JDBC_SUBPROTOCOL_INET_SYBASE_POOLED_1      = "inetpool:inetsyb";
-    /** The subprotocol used by the pooled i-net Sybase driver. */
-    public static final String JDBC_SUBPROTOCOL_INET_SYBASE_POOLED_2      = "inetpool:jdbc:inetsyb";
-    /** The subprotocol used by the JNetDirect SQLServer driver. */
-    public static final String JDBC_SUBPROTOCOL_JSQLCONNECT_SQLSERVER     = "JSQLConnect";
-    /** The subprotocol used by the jTDS SQLServer driver. */
-    public static final String JDBC_SUBPROTOCOL_JTDS_SQLSERVER            = "jtds:sqlserver";
-    /** The subprotocol used by the jTDS Sybase driver. */
-    public static final String JDBC_SUBPROTOCOL_JTDS_SYBASE               = "jtds:sybase";
 
     /** Maps the sub-protocl part of a jdbc connection url to a OJB platform name. */
-    private HashMap jdbcSubProtocolToPlatform = new HashMap();
+    private final HashMap<String,String> jdbcSubProtocolToPlatform = new HashMap<>();
     /** Maps the jdbc driver name to a OJB platform name. */
-    private HashMap jdbcDriverToPlatform      = new HashMap();
+    private final HashMap<String,String> jdbcDriverToPlatform      = new HashMap<>();
 
     /**
      * Creates a new instance.
@@ -143,8 +72,8 @@ public class PlatformUtils
         jdbcSubProtocolToPlatform.put(Db2Platform.JDBC_SUBPROTOCOL_OS390_1,                     Db2Platform.DATABASENAME);
         jdbcSubProtocolToPlatform.put(Db2Platform.JDBC_SUBPROTOCOL_OS390_2,                     Db2Platform.DATABASENAME);
         jdbcSubProtocolToPlatform.put(Db2Platform.JDBC_SUBPROTOCOL_JTOPEN,                      Db2Platform.DATABASENAME);
-        jdbcSubProtocolToPlatform.put(PlatformUtils.JDBC_SUBPROTOCOL_DATADIRECT_DB2,            Db2Platform.DATABASENAME);
-        jdbcSubProtocolToPlatform.put(PlatformUtils.JDBC_SUBPROTOCOL_INET_DB2,                  Db2Platform.DATABASENAME);
+        jdbcSubProtocolToPlatform.put(JDBCSubprotocol.JDBC_SUBPROTOCOL_DATADIRECT_DB2.value(),  Db2Platform.DATABASENAME);
+        jdbcSubProtocolToPlatform.put(JDBCSubprotocol.JDBC_SUBPROTOCOL_INET_DB2.value(),        Db2Platform.DATABASENAME);
         jdbcSubProtocolToPlatform.put(DerbyPlatform.JDBC_SUBPROTOCOL,                           DerbyPlatform.DATABASENAME);
         jdbcSubProtocolToPlatform.put(FirebirdPlatform.JDBC_SUBPROTOCOL,                        FirebirdPlatform.DATABASENAME);
         jdbcSubProtocolToPlatform.put(HsqlDbPlatform.JDBC_SUBPROTOCOL,                          HsqlDbPlatform.DATABASENAME);
@@ -154,42 +83,42 @@ public class PlatformUtils
         jdbcSubProtocolToPlatform.put(MSSqlPlatform.JDBC_SUBPROTOCOL,                           MSSqlPlatform.DATABASENAME);
         jdbcSubProtocolToPlatform.put(MSSqlPlatform.JDBC_SUBPROTOCOL_NEW,                       MSSqlPlatform.DATABASENAME);
         jdbcSubProtocolToPlatform.put(MSSqlPlatform.JDBC_SUBPROTOCOL_INTERNAL,                  MSSqlPlatform.DATABASENAME);
-        jdbcSubProtocolToPlatform.put(PlatformUtils.JDBC_SUBPROTOCOL_DATADIRECT_SQLSERVER,      MSSqlPlatform.DATABASENAME);
-        jdbcSubProtocolToPlatform.put(PlatformUtils.JDBC_SUBPROTOCOL_INET_SQLSERVER,            MSSqlPlatform.DATABASENAME);
-        jdbcSubProtocolToPlatform.put(PlatformUtils.JDBC_SUBPROTOCOL_INET_SQLSERVER6,           MSSqlPlatform.DATABASENAME);
-        jdbcSubProtocolToPlatform.put(PlatformUtils.JDBC_SUBPROTOCOL_INET_SQLSERVER7,           MSSqlPlatform.DATABASENAME);
-        jdbcSubProtocolToPlatform.put(PlatformUtils.JDBC_SUBPROTOCOL_INET_SQLSERVER7A,          MSSqlPlatform.DATABASENAME);
-        jdbcSubProtocolToPlatform.put(PlatformUtils.JDBC_SUBPROTOCOL_INET_SQLSERVER_POOLED_1,   MSSqlPlatform.DATABASENAME);
-        jdbcSubProtocolToPlatform.put(PlatformUtils.JDBC_SUBPROTOCOL_INET_SQLSERVER6_POOLED_1,  MSSqlPlatform.DATABASENAME);
-        jdbcSubProtocolToPlatform.put(PlatformUtils.JDBC_SUBPROTOCOL_INET_SQLSERVER7_POOLED_1,  MSSqlPlatform.DATABASENAME);
-        jdbcSubProtocolToPlatform.put(PlatformUtils.JDBC_SUBPROTOCOL_INET_SQLSERVER7A_POOLED_1, MSSqlPlatform.DATABASENAME);
-        jdbcSubProtocolToPlatform.put(PlatformUtils.JDBC_SUBPROTOCOL_INET_SQLSERVER_POOLED_2,   MSSqlPlatform.DATABASENAME);
-        jdbcSubProtocolToPlatform.put(PlatformUtils.JDBC_SUBPROTOCOL_INET_SQLSERVER6_POOLED_2,  MSSqlPlatform.DATABASENAME);
-        jdbcSubProtocolToPlatform.put(PlatformUtils.JDBC_SUBPROTOCOL_INET_SQLSERVER7_POOLED_2,  MSSqlPlatform.DATABASENAME);
-        jdbcSubProtocolToPlatform.put(PlatformUtils.JDBC_SUBPROTOCOL_INET_SQLSERVER7A_POOLED_2, MSSqlPlatform.DATABASENAME);
-        jdbcSubProtocolToPlatform.put(PlatformUtils.JDBC_SUBPROTOCOL_JSQLCONNECT_SQLSERVER,     MSSqlPlatform.DATABASENAME);
-        jdbcSubProtocolToPlatform.put(PlatformUtils.JDBC_SUBPROTOCOL_JTDS_SQLSERVER,            MSSqlPlatform.DATABASENAME);
+        jdbcSubProtocolToPlatform.put(JDBCSubprotocol.JDBC_SUBPROTOCOL_DATADIRECT_SQLSERVER.value(),      MSSqlPlatform.DATABASENAME);
+        jdbcSubProtocolToPlatform.put(JDBCSubprotocol.JDBC_SUBPROTOCOL_INET_SQLSERVER.value(),            MSSqlPlatform.DATABASENAME);
+        jdbcSubProtocolToPlatform.put(JDBCSubprotocol.JDBC_SUBPROTOCOL_INET_SQLSERVER6.value(),           MSSqlPlatform.DATABASENAME);
+        jdbcSubProtocolToPlatform.put(JDBCSubprotocol.JDBC_SUBPROTOCOL_INET_SQLSERVER7.value(),           MSSqlPlatform.DATABASENAME);
+        jdbcSubProtocolToPlatform.put(JDBCSubprotocol.JDBC_SUBPROTOCOL_INET_SQLSERVER7A.value(),          MSSqlPlatform.DATABASENAME);
+        jdbcSubProtocolToPlatform.put(JDBCSubprotocol.JDBC_SUBPROTOCOL_INET_SQLSERVER_POOLED_1.value(),   MSSqlPlatform.DATABASENAME);
+        jdbcSubProtocolToPlatform.put(JDBCSubprotocol.JDBC_SUBPROTOCOL_INET_SQLSERVER6_POOLED_1.value(),  MSSqlPlatform.DATABASENAME);
+        jdbcSubProtocolToPlatform.put(JDBCSubprotocol.JDBC_SUBPROTOCOL_INET_SQLSERVER7_POOLED_1.value(),  MSSqlPlatform.DATABASENAME);
+        jdbcSubProtocolToPlatform.put(JDBCSubprotocol.JDBC_SUBPROTOCOL_INET_SQLSERVER7A_POOLED_1.value(), MSSqlPlatform.DATABASENAME);
+        jdbcSubProtocolToPlatform.put(JDBCSubprotocol.JDBC_SUBPROTOCOL_INET_SQLSERVER_POOLED_2.value(),   MSSqlPlatform.DATABASENAME);
+        jdbcSubProtocolToPlatform.put(JDBCSubprotocol.JDBC_SUBPROTOCOL_INET_SQLSERVER6_POOLED_2.value(),  MSSqlPlatform.DATABASENAME);
+        jdbcSubProtocolToPlatform.put(JDBCSubprotocol.JDBC_SUBPROTOCOL_INET_SQLSERVER7_POOLED_2.value(),  MSSqlPlatform.DATABASENAME);
+        jdbcSubProtocolToPlatform.put(JDBCSubprotocol.JDBC_SUBPROTOCOL_INET_SQLSERVER7A_POOLED_2.value(), MSSqlPlatform.DATABASENAME);
+        jdbcSubProtocolToPlatform.put(JDBCSubprotocol.JDBC_SUBPROTOCOL_JSQLCONNECT_SQLSERVER.value(),     MSSqlPlatform.DATABASENAME);
+        jdbcSubProtocolToPlatform.put(JDBCSubprotocol.JDBC_SUBPROTOCOL_JTDS_SQLSERVER.value(),            MSSqlPlatform.DATABASENAME);
         jdbcSubProtocolToPlatform.put(MySqlPlatform.JDBC_SUBPROTOCOL,                           MySqlPlatform.DATABASENAME);
         jdbcSubProtocolToPlatform.put(Oracle8Platform.JDBC_SUBPROTOCOL_THIN,                    Oracle8Platform.DATABASENAME);
         jdbcSubProtocolToPlatform.put(Oracle8Platform.JDBC_SUBPROTOCOL_OCI8,                    Oracle8Platform.DATABASENAME);
         jdbcSubProtocolToPlatform.put(Oracle8Platform.JDBC_SUBPROTOCOL_THIN_OLD,                Oracle8Platform.DATABASENAME);
-        jdbcSubProtocolToPlatform.put(PlatformUtils.JDBC_SUBPROTOCOL_DATADIRECT_ORACLE,         Oracle8Platform.DATABASENAME);
-        jdbcSubProtocolToPlatform.put(PlatformUtils.JDBC_SUBPROTOCOL_INET_ORACLE,               Oracle8Platform.DATABASENAME);
+        jdbcSubProtocolToPlatform.put(JDBCSubprotocol.JDBC_SUBPROTOCOL_DATADIRECT_ORACLE.value(),         Oracle8Platform.DATABASENAME);
+        jdbcSubProtocolToPlatform.put(JDBCSubprotocol.JDBC_SUBPROTOCOL_INET_ORACLE.value(),               Oracle8Platform.DATABASENAME);
         jdbcSubProtocolToPlatform.put(PostgreSqlPlatform.JDBC_SUBPROTOCOL,                      PostgreSqlPlatform.DATABASENAME);
         jdbcSubProtocolToPlatform.put(SybasePlatform.JDBC_SUBPROTOCOL,                          SybasePlatform.DATABASENAME);
-        jdbcSubProtocolToPlatform.put(PlatformUtils.JDBC_SUBPROTOCOL_DATADIRECT_SYBASE,         SybasePlatform.DATABASENAME);
-        jdbcSubProtocolToPlatform.put(PlatformUtils.JDBC_SUBPROTOCOL_INET_SYBASE,               SybasePlatform.DATABASENAME);
-        jdbcSubProtocolToPlatform.put(PlatformUtils.JDBC_SUBPROTOCOL_INET_SYBASE_POOLED_1,      SybasePlatform.DATABASENAME);
-        jdbcSubProtocolToPlatform.put(PlatformUtils.JDBC_SUBPROTOCOL_INET_SYBASE_POOLED_2,      SybasePlatform.DATABASENAME);
-        jdbcSubProtocolToPlatform.put(PlatformUtils.JDBC_SUBPROTOCOL_JTDS_SYBASE,               SybasePlatform.DATABASENAME);
+        jdbcSubProtocolToPlatform.put(JDBCSubprotocol.JDBC_SUBPROTOCOL_DATADIRECT_SYBASE.value(),         SybasePlatform.DATABASENAME);
+        jdbcSubProtocolToPlatform.put(JDBCSubprotocol.JDBC_SUBPROTOCOL_INET_SYBASE.value(),               SybasePlatform.DATABASENAME);
+        jdbcSubProtocolToPlatform.put(JDBCSubprotocol.JDBC_SUBPROTOCOL_INET_SYBASE_POOLED_1.value(),      SybasePlatform.DATABASENAME);
+        jdbcSubProtocolToPlatform.put(JDBCSubprotocol.JDBC_SUBPROTOCOL_INET_SYBASE_POOLED_2.value(),      SybasePlatform.DATABASENAME);
+        jdbcSubProtocolToPlatform.put(JDBCSubprotocol.JDBC_SUBPROTOCOL_JTDS_SYBASE.value(),               SybasePlatform.DATABASENAME);
 
         jdbcDriverToPlatform.put(AxionPlatform.JDBC_DRIVER,                       AxionPlatform.DATABASENAME);
         jdbcDriverToPlatform.put(Db2Platform.JDBC_DRIVER,                         Db2Platform.DATABASENAME);
         jdbcDriverToPlatform.put(Db2Platform.JDBC_DRIVER_OLD1,                    Db2Platform.DATABASENAME);
         jdbcDriverToPlatform.put(Db2Platform.JDBC_DRIVER_OLD2,                    Db2Platform.DATABASENAME);
         jdbcDriverToPlatform.put(Db2Platform.JDBC_DRIVER_JTOPEN,                  Db2Platform.DATABASENAME);
-        jdbcDriverToPlatform.put(PlatformUtils.JDBC_DRIVER_DATADIRECT_DB2,        Db2Platform.DATABASENAME);
-        jdbcDriverToPlatform.put(PlatformUtils.JDBC_DRIVER_INET_DB2,              Db2Platform.DATABASENAME);
+        jdbcDriverToPlatform.put(JDBCDriver.JDBC_DRIVER_DATADIRECT_DB2.value(),        Db2Platform.DATABASENAME);
+        jdbcDriverToPlatform.put(JDBCDriver.JDBC_DRIVER_INET_DB2.value(),              Db2Platform.DATABASENAME);
         jdbcDriverToPlatform.put(DerbyPlatform.JDBC_DRIVER_EMBEDDED,              DerbyPlatform.DATABASENAME);
         jdbcDriverToPlatform.put(DerbyPlatform.JDBC_DRIVER,                       DerbyPlatform.DATABASENAME);
         jdbcDriverToPlatform.put(FirebirdPlatform.JDBC_DRIVER,                    FirebirdPlatform.DATABASENAME);
@@ -199,20 +128,20 @@ public class PlatformUtils
         jdbcDriverToPlatform.put(MckoiPlatform.JDBC_DRIVER,                       MckoiPlatform.DATABASENAME);
         jdbcDriverToPlatform.put(MSSqlPlatform.JDBC_DRIVER,                       MSSqlPlatform.DATABASENAME);
         jdbcDriverToPlatform.put(MSSqlPlatform.JDBC_DRIVER_NEW,                   MSSqlPlatform.DATABASENAME);
-        jdbcDriverToPlatform.put(PlatformUtils.JDBC_DRIVER_DATADIRECT_SQLSERVER,  MSSqlPlatform.DATABASENAME);
-        jdbcDriverToPlatform.put(PlatformUtils.JDBC_DRIVER_INET_SQLSERVER,        MSSqlPlatform.DATABASENAME);
-        jdbcDriverToPlatform.put(PlatformUtils.JDBC_DRIVER_JSQLCONNECT_SQLSERVER, MSSqlPlatform.DATABASENAME);
+        jdbcDriverToPlatform.put(JDBCDriver.JDBC_DRIVER_DATADIRECT_SQLSERVER.value(),  MSSqlPlatform.DATABASENAME);
+        jdbcDriverToPlatform.put(JDBCDriver.JDBC_DRIVER_INET_SQLSERVER.value(),        MSSqlPlatform.DATABASENAME);
+        jdbcDriverToPlatform.put(JDBCDriver.JDBC_DRIVER_JSQLCONNECT_SQLSERVER.value(), MSSqlPlatform.DATABASENAME);
         jdbcDriverToPlatform.put(MySqlPlatform.JDBC_DRIVER,                       MySqlPlatform.DATABASENAME);
         jdbcDriverToPlatform.put(MySqlPlatform.JDBC_DRIVER_OLD,                   MySqlPlatform.DATABASENAME);
         jdbcDriverToPlatform.put(Oracle8Platform.JDBC_DRIVER,                     Oracle8Platform.DATABASENAME);
         jdbcDriverToPlatform.put(Oracle8Platform.JDBC_DRIVER_OLD,                 Oracle8Platform.DATABASENAME);
-        jdbcDriverToPlatform.put(PlatformUtils.JDBC_DRIVER_DATADIRECT_ORACLE,     Oracle8Platform.DATABASENAME);
-        jdbcDriverToPlatform.put(PlatformUtils.JDBC_DRIVER_INET_ORACLE,           Oracle8Platform.DATABASENAME);
+        jdbcDriverToPlatform.put(JDBCDriver.JDBC_DRIVER_DATADIRECT_ORACLE.value(),     Oracle8Platform.DATABASENAME);
+        jdbcDriverToPlatform.put(JDBCDriver.JDBC_DRIVER_INET_ORACLE.value(),           Oracle8Platform.DATABASENAME);
         jdbcDriverToPlatform.put(PostgreSqlPlatform.JDBC_DRIVER,                  PostgreSqlPlatform.DATABASENAME);
         jdbcDriverToPlatform.put(SybasePlatform.JDBC_DRIVER,                      SybasePlatform.DATABASENAME);
         jdbcDriverToPlatform.put(SybasePlatform.JDBC_DRIVER_OLD,                  SybasePlatform.DATABASENAME);
-        jdbcDriverToPlatform.put(PlatformUtils.JDBC_DRIVER_DATADIRECT_SYBASE,     SybasePlatform.DATABASENAME);
-        jdbcDriverToPlatform.put(PlatformUtils.JDBC_DRIVER_INET_SYBASE,           SybasePlatform.DATABASENAME);
+        jdbcDriverToPlatform.put(JDBCDriver.JDBC_DRIVER_DATADIRECT_SYBASE.value(),     SybasePlatform.DATABASENAME);
+        jdbcDriverToPlatform.put(JDBCDriver.JDBC_DRIVER_INET_SYBASE.value(),           SybasePlatform.DATABASENAME);
     }
 
     /**
