@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<database name="test"
+    xmlns="http://db.apache.org/ddlutils/schema/1.1"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="./database.xsd">
+  
+  
+  <table name="element">
+    <column name="element_id"
+            type="INTEGER"
+            primaryKey="true"
+            required="true"/>
+    <column name="name"
+            type="VARCHAR"
+            size="50"
+            required="true"/>
+
+    <index name="element_idx">
+      <index-column name="element_id"/>
+    </index>
+  </table>
+</database>
