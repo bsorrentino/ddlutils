@@ -47,7 +47,6 @@ import java.util.Map;
 import org.apache.commons.beanutils.DynaBean;
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.collections.Predicate;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.ddlutils.DatabaseOperationException;
@@ -124,6 +123,7 @@ public abstract class PlatformImplBase extends JdbcSupport implements Platform
     /**
      * {@inheritDoc}
      */
+    @Override
     public SqlBuilder getSqlBuilder()
     {
         return _builder;
@@ -142,6 +142,7 @@ public abstract class PlatformImplBase extends JdbcSupport implements Platform
     /**
      * {@inheritDoc}
      */
+    @Override    
     public JdbcModelReader getModelReader()
     {
         if (_modelReader == null)
@@ -164,6 +165,7 @@ public abstract class PlatformImplBase extends JdbcSupport implements Platform
     /**
      * {@inheritDoc}
      */
+    @Override
     public PlatformInfo getPlatformInfo()
     {
         return _info;
@@ -172,6 +174,7 @@ public abstract class PlatformImplBase extends JdbcSupport implements Platform
     /**
      * {@inheritDoc}
      */
+    @Override
     public boolean isScriptModeOn()
     {
         return _scriptModeOn;
@@ -180,6 +183,7 @@ public abstract class PlatformImplBase extends JdbcSupport implements Platform
     /**
      * {@inheritDoc}
      */
+    @Override
     public void setScriptModeOn(boolean scriptModeOn)
     {
         _scriptModeOn = scriptModeOn;
@@ -188,6 +192,7 @@ public abstract class PlatformImplBase extends JdbcSupport implements Platform
     /**
      * {@inheritDoc}
      */
+    @Override
     public boolean isSqlCommentsOn()
     {
         return _sqlCommentsOn;
@@ -196,6 +201,7 @@ public abstract class PlatformImplBase extends JdbcSupport implements Platform
     /**
      * {@inheritDoc}
      */
+    @Override
     public void setSqlCommentsOn(boolean sqlCommentsOn)
     {
         if (!getPlatformInfo().isSqlCommentsSupported() && sqlCommentsOn)
@@ -208,6 +214,7 @@ public abstract class PlatformImplBase extends JdbcSupport implements Platform
     /**
      * {@inheritDoc}
      */
+    @Override
     public boolean isDelimitedIdentifierModeOn()
     {
         return _delimitedIdentifierModeOn;
@@ -216,6 +223,7 @@ public abstract class PlatformImplBase extends JdbcSupport implements Platform
     /**
      * {@inheritDoc}
      */
+    @Override
     public void setDelimitedIdentifierModeOn(boolean delimitedIdentifierModeOn)
     {
         if (!getPlatformInfo().isDelimitedIdentifiersSupported() && delimitedIdentifierModeOn)
@@ -228,6 +236,7 @@ public abstract class PlatformImplBase extends JdbcSupport implements Platform
     /**
      * {@inheritDoc}
      */
+    @Override
     public boolean isIdentityOverrideOn()
     {
         return _identityOverrideOn;
@@ -236,6 +245,7 @@ public abstract class PlatformImplBase extends JdbcSupport implements Platform
     /**
      * {@inheritDoc}
      */
+    @Override
     public void setIdentityOverrideOn(boolean identityOverrideOn)
     {
         _identityOverrideOn = identityOverrideOn;
@@ -244,6 +254,7 @@ public abstract class PlatformImplBase extends JdbcSupport implements Platform
     /**
      * {@inheritDoc}
      */
+    @Override
     public boolean isForeignKeysSorted()
     {
         return _foreignKeysSorted;
@@ -252,6 +263,7 @@ public abstract class PlatformImplBase extends JdbcSupport implements Platform
     /**
      * {@inheritDoc}
      */
+    @Override
     public void setForeignKeysSorted(boolean foreignKeysSorted)
     {
         _foreignKeysSorted = foreignKeysSorted;
@@ -260,6 +272,7 @@ public abstract class PlatformImplBase extends JdbcSupport implements Platform
     /**
      * {@inheritDoc}
      */
+    @Override
     public boolean isDefaultOnUpdateActionUsedIfUnsupported()
     {
         return _useDefaultOnUpdateActionIfUnsupported;
@@ -268,6 +281,7 @@ public abstract class PlatformImplBase extends JdbcSupport implements Platform
     /**
      * {@inheritDoc}
      */
+    @Override
     public void setDefaultOnUpdateActionUsedIfUnsupported(boolean useDefault)
     {
         _useDefaultOnUpdateActionIfUnsupported = useDefault;
@@ -276,6 +290,7 @@ public abstract class PlatformImplBase extends JdbcSupport implements Platform
     /**
      * {@inheritDoc}
      */
+    @Override
     public boolean isDefaultOnDeleteActionUsedIfUnsupported()
     {
         return _useDefaultOnDeleteActionIfUnsupported;
@@ -284,6 +299,7 @@ public abstract class PlatformImplBase extends JdbcSupport implements Platform
     /**
      * {@inheritDoc}
      */
+    @Override
     public void setDefaultOnDeleteActionUsedIfUnsupported(boolean useDefault)
     {
         _useDefaultOnDeleteActionIfUnsupported = useDefault;
@@ -304,6 +320,7 @@ public abstract class PlatformImplBase extends JdbcSupport implements Platform
      * to be open for this.
      * 
      * @param connection The open connection
+     * @throws java.sql.SQLException
      */
     protected void logWarnings(Connection connection) throws SQLException
     {
@@ -319,6 +336,7 @@ public abstract class PlatformImplBase extends JdbcSupport implements Platform
     /**
      * {@inheritDoc}
      */
+    @Override
     public int evaluateBatch(String sql, boolean continueOnError) throws DatabaseOperationException
     {
         Connection connection = borrowConnection();
@@ -336,6 +354,7 @@ public abstract class PlatformImplBase extends JdbcSupport implements Platform
     /**
      * {@inheritDoc}
      */
+    @Override
     public int evaluateBatch(Connection connection, String sql, boolean continueOnError) throws DatabaseOperationException
     {
         Statement statement    = null;
@@ -422,6 +441,7 @@ public abstract class PlatformImplBase extends JdbcSupport implements Platform
     /**
      * {@inheritDoc}
      */
+    @Override
     public void shutdownDatabase() throws DatabaseOperationException
     {
         Connection connection = borrowConnection();
@@ -439,6 +459,7 @@ public abstract class PlatformImplBase extends JdbcSupport implements Platform
     /**
      * {@inheritDoc}
      */
+    @Override
     public void shutdownDatabase(Connection connection) throws DatabaseOperationException
     {
         // Per default do nothing as most databases don't need this
@@ -447,6 +468,7 @@ public abstract class PlatformImplBase extends JdbcSupport implements Platform
     /**
      * {@inheritDoc}
      */
+    @Override
     public void createDatabase(String jdbcDriverClassName, String connectionUrl, String username, String password, Map parameters) throws DatabaseOperationException, UnsupportedOperationException
     {
         throw new UnsupportedOperationException("Database creation is not supported for the database platform "+getName());
@@ -455,6 +477,7 @@ public abstract class PlatformImplBase extends JdbcSupport implements Platform
     /**
      * {@inheritDoc}
      */
+    @Override
     public void dropDatabase(String jdbcDriverClassName, String connectionUrl, String username, String password) throws DatabaseOperationException, UnsupportedOperationException
     {
         throw new UnsupportedOperationException("Database deletion is not supported for the database platform "+getName());
@@ -463,54 +486,7 @@ public abstract class PlatformImplBase extends JdbcSupport implements Platform
     /**
      * {@inheritDoc}
      */
-    public void createTables(Database model, boolean dropTablesFirst, boolean continueOnError) throws DatabaseOperationException
-    {
-        createModel(model, dropTablesFirst, continueOnError);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public void createTables(Database model, CreationParameters params, boolean dropTablesFirst, boolean continueOnError) throws DatabaseOperationException
-    {
-        createModel(model, params, dropTablesFirst, continueOnError);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public void createTables(Connection connection, Database model, boolean dropTablesFirst, boolean continueOnError) throws DatabaseOperationException
-    {
-        createModel(connection, model, dropTablesFirst, continueOnError);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public void createTables(Connection connection, Database model, CreationParameters params, boolean dropTablesFirst, boolean continueOnError) throws DatabaseOperationException
-    {
-        createModel(connection, model, params, dropTablesFirst, continueOnError);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public String getCreateTablesSql(Database model, boolean dropTablesFirst, boolean continueOnError)
-    {
-        return getCreateModelSql(model, dropTablesFirst, continueOnError);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public String getCreateTablesSql(Database model, CreationParameters params, boolean dropTablesFirst, boolean continueOnError)
-    {
-        return getCreateModelSql(model, params, dropTablesFirst, continueOnError);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
+    @Override
     public void createModel(Database model, boolean dropTablesFirst, boolean continueOnError) throws DatabaseOperationException
     {
         Connection connection = borrowConnection();
@@ -528,6 +504,7 @@ public abstract class PlatformImplBase extends JdbcSupport implements Platform
     /**
      * {@inheritDoc}
      */
+    @Override
     public void createModel(Connection connection, Database model, boolean dropTablesFirst, boolean continueOnError) throws DatabaseOperationException
     {
         String sql = getCreateModelSql(model, dropTablesFirst, continueOnError);
@@ -538,6 +515,7 @@ public abstract class PlatformImplBase extends JdbcSupport implements Platform
     /**
      * {@inheritDoc}
      */
+    @Override
     public void createModel(Database model, CreationParameters params, boolean dropTablesFirst, boolean continueOnError) throws DatabaseOperationException
     {
         Connection connection = borrowConnection();
@@ -555,6 +533,7 @@ public abstract class PlatformImplBase extends JdbcSupport implements Platform
     /**
      * {@inheritDoc}
      */
+    @Override
     public void createModel(Connection connection, Database model, CreationParameters params, boolean dropTablesFirst, boolean continueOnError) throws DatabaseOperationException
     {
         String sql = getCreateModelSql(model, params, dropTablesFirst, continueOnError);
@@ -565,6 +544,7 @@ public abstract class PlatformImplBase extends JdbcSupport implements Platform
     /**
      * {@inheritDoc}
      */
+    @Override
     public String getCreateModelSql(Database model, boolean dropTablesFirst, boolean continueOnError)
     {
         String sql = null;
@@ -692,122 +672,6 @@ public abstract class PlatformImplBase extends JdbcSupport implements Platform
     /**
      * {@inheritDoc}
      */
-    public void alterTables(Database desiredModel, boolean continueOnError) throws DatabaseOperationException
-    {
-        Connection connection = borrowConnection();
-
-        try
-        {
-            Database currentModel = readModelFromDatabase(connection, desiredModel.getName());
-
-            alterModel(currentModel, desiredModel, continueOnError);
-        }
-        finally
-        {
-            returnConnection(connection);
-        }
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public void alterTables(Database desiredModel, CreationParameters params, boolean continueOnError) throws DatabaseOperationException
-    {
-        Connection connection = borrowConnection();
-
-        try
-        {
-            Database currentModel = readModelFromDatabase(connection, desiredModel.getName());
-
-            alterModel(currentModel, desiredModel, params, continueOnError);
-        }
-        finally
-        {
-            returnConnection(connection);
-        }
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public void alterTables(String catalog, String schema, String[] tableTypes, Database desiredModel, boolean continueOnError) throws DatabaseOperationException
-    {
-        Connection connection = borrowConnection();
-
-        try
-        {
-            Database currentModel = readModelFromDatabase(connection, desiredModel.getName(), catalog, schema, tableTypes);
-
-            alterModel(currentModel, desiredModel, continueOnError);
-        }
-        finally
-        {
-            returnConnection(connection);
-        }
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public void alterTables(String catalog, String schema, String[] tableTypes, Database desiredModel, CreationParameters params, boolean continueOnError) throws DatabaseOperationException
-    {
-        Connection connection = borrowConnection();
-
-        try
-        {
-            Database currentModel = readModelFromDatabase(connection, desiredModel.getName(), catalog, schema, tableTypes);
-
-            alterModel(currentModel, desiredModel, params, continueOnError);
-        }
-        finally
-        {
-            returnConnection(connection);
-        }
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public void alterTables(Connection connection, Database desiredModel, boolean continueOnError) throws DatabaseOperationException
-    {
-        Database currentModel = readModelFromDatabase(connection, desiredModel.getName());
-
-        alterModel(currentModel, desiredModel, continueOnError);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public void alterTables(Connection connection, Database desiredModel, CreationParameters params, boolean continueOnError) throws DatabaseOperationException
-    {
-        Database currentModel = readModelFromDatabase(connection, desiredModel.getName());
-
-        alterModel(currentModel, desiredModel, params, continueOnError);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public void alterTables(Connection connection, String catalog, String schema, String[] tableTypes, Database desiredModel, boolean continueOnError) throws DatabaseOperationException
-    {
-        Database currentModel = readModelFromDatabase(connection, desiredModel.getName(), catalog, schema, tableTypes);
-
-        alterModel(currentModel, desiredModel, continueOnError);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public void alterTables(Connection connection, String catalog, String schema, String[] tableTypes, Database desiredModel, CreationParameters params, boolean continueOnError) throws DatabaseOperationException
-    {
-        Database currentModel = readModelFromDatabase(connection, desiredModel.getName(), catalog, schema, tableTypes);
-
-        alterModel(currentModel, desiredModel, params, continueOnError);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
     public String getAlterTablesSql(Database desiredModel) throws DatabaseOperationException
     {
         Connection connection = borrowConnection();
@@ -924,6 +788,7 @@ public abstract class PlatformImplBase extends JdbcSupport implements Platform
     /**
      * {@inheritDoc}
      */
+    @Override
     public String getAlterModelSql(Database currentModel, Database desiredModel) throws DatabaseOperationException
     {
         return getAlterModelSql(currentModel, desiredModel, null);
@@ -932,6 +797,7 @@ public abstract class PlatformImplBase extends JdbcSupport implements Platform
     /**
      * {@inheritDoc}
      */
+    @Override
     public String getAlterModelSql(Database currentModel, Database desiredModel, CreationParameters params) throws DatabaseOperationException
     {
         List   changes = getChanges(currentModel, desiredModel);
@@ -955,6 +821,7 @@ public abstract class PlatformImplBase extends JdbcSupport implements Platform
     /**
      * {@inheritDoc}
      */
+    @Override
     public void alterModel(Database currentModel, Database desiredModel, boolean continueOnError) throws DatabaseOperationException
     {
         Connection connection = borrowConnection();
@@ -972,6 +839,7 @@ public abstract class PlatformImplBase extends JdbcSupport implements Platform
     /**
      * {@inheritDoc}
      */
+    @Override
     public void alterModel(Database currentModel, Database desiredModel, CreationParameters params, boolean continueOnError) throws DatabaseOperationException
     {
         Connection connection = borrowConnection();
@@ -989,6 +857,7 @@ public abstract class PlatformImplBase extends JdbcSupport implements Platform
     /**
      * {@inheritDoc}
      */
+    @Override
     public void alterModel(Connection connection, Database currentModel, Database desiredModel, boolean continueOnError) throws DatabaseOperationException
     {
         String sql = getAlterModelSql(currentModel, desiredModel);
@@ -999,6 +868,7 @@ public abstract class PlatformImplBase extends JdbcSupport implements Platform
     /**
      * {@inheritDoc}
      */
+    @Override
     public void alterModel(Connection connection, Database currentModel, Database desiredModel, CreationParameters params, boolean continueOnError) throws DatabaseOperationException
     {
         String sql = getAlterModelSql(currentModel, desiredModel, params);
@@ -1006,9 +876,10 @@ public abstract class PlatformImplBase extends JdbcSupport implements Platform
         evaluateBatch(connection, sql, continueOnError);
     }
 
-	/**
+    /**
      * {@inheritDoc}
      */
+    @Override
     public void dropTable(Connection connection, Database model, Table table, boolean continueOnError) throws DatabaseOperationException
     {
         String sql = getDropTableSql(model, table, continueOnError);
@@ -1019,6 +890,7 @@ public abstract class PlatformImplBase extends JdbcSupport implements Platform
     /**
      * {@inheritDoc}
      */
+    @Override
     public void dropTable(Database model, Table table, boolean continueOnError) throws DatabaseOperationException
     {
         Connection connection = borrowConnection();
@@ -1036,6 +908,7 @@ public abstract class PlatformImplBase extends JdbcSupport implements Platform
     /**
      * {@inheritDoc}
      */
+    @Override
     public String getDropTableSql(Database model, Table table, boolean continueOnError)
     {
         String sql = null;
@@ -1058,30 +931,7 @@ public abstract class PlatformImplBase extends JdbcSupport implements Platform
     /**
      * {@inheritDoc}
      */
-    public void dropTables(Database model, boolean continueOnError) throws DatabaseOperationException
-    {
-        dropModel(model, continueOnError);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public void dropTables(Connection connection, Database model, boolean continueOnError) throws DatabaseOperationException
-    {
-        dropModel(connection, model, continueOnError);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public String getDropTablesSql(Database model, boolean continueOnError)
-    {
-        return getDropModelSql(model);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
+    @Override
     public void dropModel(Database model, boolean continueOnError) throws DatabaseOperationException
     {
         Connection connection = borrowConnection();
@@ -1099,6 +949,7 @@ public abstract class PlatformImplBase extends JdbcSupport implements Platform
     /**
      * {@inheritDoc}
      */
+    @Override
     public void dropModel(Connection connection, Database model, boolean continueOnError) throws DatabaseOperationException 
     {
         String sql = getDropModelSql(model);
@@ -1109,6 +960,7 @@ public abstract class PlatformImplBase extends JdbcSupport implements Platform
     /**
      * {@inheritDoc}
      */
+    @Override
     public String getDropModelSql(Database model) 
     {
         String sql = null;
@@ -1138,6 +990,7 @@ public abstract class PlatformImplBase extends JdbcSupport implements Platform
      * @param params  The parameters used in the creation of new tables. Note that for existing
      *                tables, the parameters won't be applied
      * @return The changed database model
+     * @throws java.io.IOException
      */
     protected Database processChanges(Database           model,
                                       Collection         changes,
@@ -1207,7 +1060,7 @@ public abstract class PlatformImplBase extends JdbcSupport implements Platform
                     throw new DdlUtilsException(ex.getTargetException());
                 }
             }
-            catch (Exception ex)
+            catch (IllegalAccessException | IllegalArgumentException | SecurityException ex)
             {
                 throw new DdlUtilsException(ex);
             }
@@ -1291,6 +1144,7 @@ public abstract class PlatformImplBase extends JdbcSupport implements Platform
      * @param params       The parameters used in the creation of new tables. Note that for existing
      *                     tables, the parameters won't be applied
      * @param change       The change object
+     * @throws java.io.IOException
      */
     public void processChange(Database           currentModel,
                               CreationParameters params,
@@ -1309,6 +1163,7 @@ public abstract class PlatformImplBase extends JdbcSupport implements Platform
      * @param params       The parameters used in the creation of new tables. Note that for existing
      *                     tables, the parameters won't be applied
      * @param change       The change object
+     * @throws java.io.IOException
      */
     public void processChange(Database           currentModel,
                               CreationParameters params,
@@ -1327,6 +1182,7 @@ public abstract class PlatformImplBase extends JdbcSupport implements Platform
      * @param params       The parameters used in the creation of new tables. Note that for existing
      *                     tables, the parameters won't be applied
      * @param change       The change object
+     * @throws java.io.IOException
      */
     public void processChange(Database            currentModel,
                               CreationParameters  params,
@@ -1347,6 +1203,7 @@ public abstract class PlatformImplBase extends JdbcSupport implements Platform
      * @param params       The parameters used in the creation of new tables. Note that for existing
      *                     tables, the parameters won't be applied
      * @param change       The change object
+     * @throws java.io.IOException
      */
     public void processChange(Database               currentModel,
                               CreationParameters     params,
@@ -1366,6 +1223,7 @@ public abstract class PlatformImplBase extends JdbcSupport implements Platform
      * @param params       The parameters used in the creation of new tables. Note that for existing
      *                     tables, the parameters won't be applied
      * @param change       The change object
+     * @throws java.io.IOException
      */
     public void processChange(Database           currentModel,
                               CreationParameters params,
@@ -1384,6 +1242,7 @@ public abstract class PlatformImplBase extends JdbcSupport implements Platform
      * @param params       The parameters used in the creation of new tables. Note that for existing
      *                     tables, the parameters won't be applied
      * @param change       The change object
+     * @throws java.io.IOException
      */
     public void processChange(Database           currentModel,
                               CreationParameters params,
@@ -1403,6 +1262,7 @@ public abstract class PlatformImplBase extends JdbcSupport implements Platform
      * @param params       The parameters used in the creation of new tables. Note that for existing
      *                     tables, the parameters won't be applied
      * @param change       The change object
+     * @throws java.io.IOException
      */
     public void processChange(Database           currentModel,
                               CreationParameters params,
@@ -1421,6 +1281,7 @@ public abstract class PlatformImplBase extends JdbcSupport implements Platform
      * @param params       The parameters used in the creation of new tables. Note that for existing
      *                     tables, the parameters won't be applied
      * @param change       The change object
+     * @throws java.io.IOException
      */
     public void processChange(Database            currentModel,
                               CreationParameters  params,
@@ -1445,6 +1306,7 @@ public abstract class PlatformImplBase extends JdbcSupport implements Platform
      * @param params       The parameters used in the creation of new tables. Note that for existing
      *                     tables, the parameters won't be applied
      * @param change       The change object
+     * @throws java.io.IOException
      */
     public void processChange(Database            currentModel,
                               CreationParameters  params,
@@ -1530,6 +1392,7 @@ public abstract class PlatformImplBase extends JdbcSupport implements Platform
     /**
      * {@inheritDoc}
      */
+    @Override
     public Iterator query(Database model, String sql) throws DatabaseOperationException
     {
         return query(model, sql, (Table[])null);
@@ -1538,6 +1401,7 @@ public abstract class PlatformImplBase extends JdbcSupport implements Platform
     /**
      * {@inheritDoc}
      */
+    @Override
     public Iterator query(Database model, String sql, Collection parameters) throws DatabaseOperationException
     {
         return query(model, sql, parameters, null);
@@ -1546,6 +1410,7 @@ public abstract class PlatformImplBase extends JdbcSupport implements Platform
     /**
      * {@inheritDoc}
      */
+    @Override
     public Iterator query(Database model, String sql, Table[] queryHints) throws DatabaseOperationException
     {
         Connection connection = borrowConnection();
@@ -1579,6 +1444,7 @@ public abstract class PlatformImplBase extends JdbcSupport implements Platform
     /**
      * {@inheritDoc}
      */
+    @Override
     public Iterator query(Database model, String sql, Collection parameters, Table[] queryHints) throws DatabaseOperationException
     {
         Connection        connection = borrowConnection();
@@ -1629,6 +1495,7 @@ public abstract class PlatformImplBase extends JdbcSupport implements Platform
     /**
      * {@inheritDoc}
      */
+    @Override
     public List fetch(Database model, String sql) throws DatabaseOperationException
     {
         return fetch(model, sql, (Table[])null, 0, -1);
@@ -1637,6 +1504,7 @@ public abstract class PlatformImplBase extends JdbcSupport implements Platform
     /**
      * {@inheritDoc}
      */
+    @Override
     public List fetch(Database model, String sql, Table[] queryHints) throws DatabaseOperationException
     {
         return fetch(model, sql, queryHints, 0, -1);
@@ -1645,6 +1513,7 @@ public abstract class PlatformImplBase extends JdbcSupport implements Platform
     /**
      * {@inheritDoc}
      */
+    @Override
     public List fetch(Database model, String sql, int start, int end) throws DatabaseOperationException
     {
         return fetch(model, sql, (Table[])null, start, end);
@@ -1653,6 +1522,7 @@ public abstract class PlatformImplBase extends JdbcSupport implements Platform
     /**
      * {@inheritDoc}
      */
+    @Override
     public List fetch(Database model, String sql, Table[] queryHints, int start, int end) throws DatabaseOperationException
     {
         Connection connection = borrowConnection();
@@ -1696,6 +1566,7 @@ public abstract class PlatformImplBase extends JdbcSupport implements Platform
     /**
      * {@inheritDoc}
      */
+    @Override
     public List fetch(Database model, String sql, Collection parameters) throws DatabaseOperationException
     {
         return fetch(model, sql, parameters, null, 0, -1);
@@ -1704,6 +1575,7 @@ public abstract class PlatformImplBase extends JdbcSupport implements Platform
     /**
      * {@inheritDoc}
      */
+    @Override
     public List fetch(Database model, String sql, Collection parameters, int start, int end) throws DatabaseOperationException
     {
         return fetch(model, sql, parameters, null, start, end);
@@ -1712,6 +1584,7 @@ public abstract class PlatformImplBase extends JdbcSupport implements Platform
     /**
      * {@inheritDoc}
      */
+    @Override
     public List fetch(Database model, String sql, Collection parameters, Table[] queryHints) throws DatabaseOperationException
     {
         return fetch(model, sql, parameters, queryHints, 0, -1);
@@ -1720,6 +1593,7 @@ public abstract class PlatformImplBase extends JdbcSupport implements Platform
     /**
      * {@inheritDoc}
      */
+    @Override
     public List fetch(Database model, String sql, Collection parameters, Table[] queryHints, int start, int end) throws DatabaseOperationException
     {
         Connection        connection = borrowConnection();
@@ -1810,6 +1684,7 @@ public abstract class PlatformImplBase extends JdbcSupport implements Platform
     /**
      * {@inheritDoc}
      */
+    @Override
     public String getInsertSql(Database model, DynaBean dynaBean)
     {
         SqlDynaClass      dynaClass  = model.getDynaClassFor(dynaBean);
@@ -1837,28 +1712,26 @@ public abstract class PlatformImplBase extends JdbcSupport implements Platform
     {
         SqlDynaProperty[] properties = dynaClass.getSqlDynaProperties();
 
-        Collection result = CollectionUtils.select(Arrays.asList(properties), new Predicate() {
-            public boolean evaluate(Object input) {
-                SqlDynaProperty prop = (SqlDynaProperty)input;
+        Collection result = CollectionUtils.select(Arrays.asList(properties), (input) -> {
+            SqlDynaProperty prop = (SqlDynaProperty)input;
 
-                if (bean.get(prop.getName()) != null)
-                {
-                    // we ignore properties for which a value is present in the bean
-                    // only if they are identity and identity override is off or
-                    // the platform does not allow the override of the auto-increment
-                    // specification
-                    return !prop.getColumn().isAutoIncrement() ||
-                           (isIdentityOverrideOn() && getPlatformInfo().isIdentityOverrideAllowed());
-                }
-                else
-                {
-                    // we also return properties without a value in the bean
-                    // if they ain't auto-increment and don't have a default value
-                    // in this case, a NULL is inserted
-                    return !prop.getColumn().isAutoIncrement() &&
-                           (prop.getColumn().getDefaultValue() == null);
-                }
+            if (bean.get(prop.getName()) != null)
+            {
+                // we ignore properties for which a value is present in the bean
+                // only if they are identity and identity override is off or
+                // the platform does not allow the override of the auto-increment
+                // specification
+                return !prop.getColumn().isAutoIncrement() ||
+                       (isIdentityOverrideOn() && getPlatformInfo().isIdentityOverrideAllowed());
             }
+            else
+            {
+                // we also return properties without a value in the bean
+                // if they ain't auto-increment and don't have a default value
+                // in this case, a NULL is inserted
+                return !prop.getColumn().isAutoIncrement() &&
+                       (prop.getColumn().getDefaultValue() == null);
+            }            
         });
 
         return (SqlDynaProperty[])result.toArray(new SqlDynaProperty[result.size()]);
@@ -1877,17 +1750,15 @@ public abstract class PlatformImplBase extends JdbcSupport implements Platform
     {
         SqlDynaProperty[] properties = dynaClass.getSqlDynaProperties();
 
-        Collection relevantProperties = CollectionUtils.select(Arrays.asList(properties), new Predicate() {
-            public boolean evaluate(Object input) {
-                SqlDynaProperty prop = (SqlDynaProperty)input;
-
-                // we only want those identity columns that were really specified by the DB
-                // if the platform allows specification of values for identity columns
-                // in INSERT/UPDATE statements, then we need to filter the corresponding
-                // columns out
-                return prop.getColumn().isAutoIncrement() &&
-                       (!isIdentityOverrideOn() || !getPlatformInfo().isIdentityOverrideAllowed() || (bean.get(prop.getName()) == null));
-            }
+        Collection relevantProperties = CollectionUtils.select(Arrays.asList(properties), (input) -> {
+            SqlDynaProperty prop = (SqlDynaProperty)input;
+            
+            // we only want those identity columns that were really specified by the DB
+            // if the platform allows specification of values for identity columns
+            // in INSERT/UPDATE statements, then we need to filter the corresponding
+            // columns out
+            return prop.getColumn().isAutoIncrement() &&
+                    (!isIdentityOverrideOn() || !getPlatformInfo().isIdentityOverrideAllowed() || (bean.get(prop.getName()) == null));
         });
 
         Column[] columns = new Column[relevantProperties.size()];
@@ -1903,6 +1774,7 @@ public abstract class PlatformImplBase extends JdbcSupport implements Platform
     /**
      * {@inheritDoc}
      */
+    @Override
     public void insert(Connection connection, Database model, DynaBean dynaBean) throws DatabaseOperationException
     {
         SqlDynaClass      dynaClass       = model.getDynaClassFor(dynaBean);
@@ -2008,18 +1880,13 @@ public abstract class PlatformImplBase extends JdbcSupport implements Platform
                     PropertyUtils.setProperty(dynaBean, autoIncrColumns[idx].getName(), value);
                 }
             }
-            catch (NoSuchMethodException ex)
+            catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException ex)
             {
                 // Can't happen because we're using dyna beans
             }
-            catch (IllegalAccessException ex)
-            {
-                // Can't happen because we're using dyna beans
-            }
-            catch (InvocationTargetException ex)
-            {
-                // Can't happen because we're using dyna beans
-            }
+            // Can't happen because we're using dyna beans
+            // Can't happen because we're using dyna beans
+
             catch (SQLException ex)
             {
                 throw new DatabaseOperationException("Error while retrieving the identity column value(s) from the database", ex);
@@ -2058,6 +1925,7 @@ public abstract class PlatformImplBase extends JdbcSupport implements Platform
     /**
      * {@inheritDoc}
      */
+    @Override
     public void insert(Database model, DynaBean dynaBean) throws DatabaseOperationException
     {
         Connection connection = borrowConnection();
@@ -2075,6 +1943,7 @@ public abstract class PlatformImplBase extends JdbcSupport implements Platform
     /**
      * {@inheritDoc}
      */
+    @Override
     public void insert(Connection connection, Database model, Collection dynaBeans) throws DatabaseOperationException
     {
         SqlDynaClass      dynaClass              = null;
@@ -2214,6 +2083,7 @@ public abstract class PlatformImplBase extends JdbcSupport implements Platform
     /**
      * {@inheritDoc}
      */
+    @Override
     public void insert(Database model, Collection dynaBeans) throws DatabaseOperationException
     {
         Connection connection = borrowConnection();
@@ -2234,6 +2104,7 @@ public abstract class PlatformImplBase extends JdbcSupport implements Platform
      *  
      * @param connection The connection used for the insertion
      * @param table      The table that the rows are inserted into
+     * @throws java.sql.SQLException
      */
     protected void beforeInsert(Connection connection, Table table) throws SQLException
     {
@@ -2245,6 +2116,7 @@ public abstract class PlatformImplBase extends JdbcSupport implements Platform
      *  
      * @param connection The connection used for the insertion
      * @param table      The table that the rows have been inserted into
+     * @throws java.sql.SQLException
      */
     protected void afterInsert(Connection connection, Table table) throws SQLException
     {
@@ -2305,6 +2177,7 @@ public abstract class PlatformImplBase extends JdbcSupport implements Platform
     /**
      * {@inheritDoc}
      */
+    @Override
     public String getUpdateSql(Database model, DynaBean dynaBean)
     {
         SqlDynaClass      dynaClass      = model.getDynaClassFor(dynaBean);
@@ -2325,6 +2198,7 @@ public abstract class PlatformImplBase extends JdbcSupport implements Platform
     /**
      * {@inheritDoc}
      */
+    @Override
     public String getUpdateSql(Database model, DynaBean oldDynaBean, DynaBean newDynaBean)
     {
         SqlDynaClass      dynaClass      = model.getDynaClassFor(oldDynaBean);
@@ -2345,6 +2219,7 @@ public abstract class PlatformImplBase extends JdbcSupport implements Platform
     /**
      * {@inheritDoc}
      */
+    @Override
     public void update(Connection connection, Database model, DynaBean dynaBean) throws DatabaseOperationException
     {
         SqlDynaClass      dynaClass   = model.getDynaClassFor(dynaBean);
@@ -2405,6 +2280,7 @@ public abstract class PlatformImplBase extends JdbcSupport implements Platform
     /**
      * {@inheritDoc}
      */
+    @Override
     public void update(Database model, DynaBean dynaBean) throws DatabaseOperationException
     {
         Connection connection = borrowConnection();
@@ -2422,6 +2298,7 @@ public abstract class PlatformImplBase extends JdbcSupport implements Platform
     /**
      * {@inheritDoc}
      */
+    @Override
     public void update(Connection connection, Database model, DynaBean oldDynaBean, DynaBean newDynaBean) throws DatabaseOperationException
     {
         SqlDynaClass      dynaClass   = model.getDynaClassFor(oldDynaBean);
@@ -2486,6 +2363,7 @@ public abstract class PlatformImplBase extends JdbcSupport implements Platform
     /**
      * {@inheritDoc}
      */
+    @Override
     public void update(Database model, DynaBean oldDynaBean, DynaBean newDynaBean) throws DatabaseOperationException
     {
         Connection connection = borrowConnection();
@@ -2506,6 +2384,7 @@ public abstract class PlatformImplBase extends JdbcSupport implements Platform
      *  
      * @param connection The connection used for the update
      * @param table      The table that the rows are updateed into
+     * @throws java.sql.SQLException
      */
     protected void beforeUpdate(Connection connection, Table table) throws SQLException
     {
@@ -2517,6 +2396,7 @@ public abstract class PlatformImplBase extends JdbcSupport implements Platform
      *  
      * @param connection The connection used for the update
      * @param table      The table that the rows have been updateed into
+     * @throws java.sql.SQLException
      */
     protected void afterUpdate(Connection connection, Table table) throws SQLException
     {
@@ -2525,6 +2405,7 @@ public abstract class PlatformImplBase extends JdbcSupport implements Platform
     /**
      * {@inheritDoc}
      */
+    @Override
     public boolean exists(Database model, DynaBean dynaBean)
     {
         Connection connection = borrowConnection();
@@ -2543,6 +2424,7 @@ public abstract class PlatformImplBase extends JdbcSupport implements Platform
     /**
      * {@inheritDoc}
      */
+    @Override
     public boolean exists(Connection connection, Database model, DynaBean dynaBean)
     {
         SqlDynaClass      dynaClass   = model.getDynaClassFor(dynaBean);
@@ -2557,7 +2439,7 @@ public abstract class PlatformImplBase extends JdbcSupport implements Platform
 
         try
         {
-            StringBuffer sql = new StringBuffer();
+            StringBuilder sql = new StringBuilder();
 
             sql.append("SELECT * FROM ");
             sql.append(_builder.getDelimitedIdentifier(dynaClass.getTable().getName()));
@@ -2599,6 +2481,7 @@ public abstract class PlatformImplBase extends JdbcSupport implements Platform
     /**
      * {@inheritDoc}
      */
+    @Override
     public void store(Database model, DynaBean dynaBean) throws DatabaseOperationException
     {
         Connection connection = borrowConnection();
@@ -2616,6 +2499,7 @@ public abstract class PlatformImplBase extends JdbcSupport implements Platform
     /**
      * {@inheritDoc}
      */
+    @Override
     public void store(Connection connection, Database model, DynaBean dynaBean) throws DatabaseOperationException
     {
         if (exists(connection, model, dynaBean))
@@ -2650,6 +2534,7 @@ public abstract class PlatformImplBase extends JdbcSupport implements Platform
     /**
      * {@inheritDoc}
      */
+    @Override
     public String getDeleteSql(Database model, DynaBean dynaBean)
     {
         SqlDynaClass      dynaClass   = model.getDynaClassFor(dynaBean);
@@ -2669,6 +2554,7 @@ public abstract class PlatformImplBase extends JdbcSupport implements Platform
     /**
      * {@inheritDoc}
      */
+    @Override
     public void delete(Database model, DynaBean dynaBean) throws DatabaseOperationException
     {
         Connection connection = borrowConnection();
@@ -2686,6 +2572,7 @@ public abstract class PlatformImplBase extends JdbcSupport implements Platform
     /**
      * {@inheritDoc}
      */
+    @Override
     public void delete(Connection connection, Database model, DynaBean dynaBean) throws DatabaseOperationException
     {
         PreparedStatement statement  = null;
@@ -2737,6 +2624,7 @@ public abstract class PlatformImplBase extends JdbcSupport implements Platform
     /**
      * {@inheritDoc}
      */    
+    @Override
     public Database readModelFromDatabase(String name) throws DatabaseOperationException
     {
         Connection connection = borrowConnection();
@@ -2754,6 +2642,7 @@ public abstract class PlatformImplBase extends JdbcSupport implements Platform
     /**
      * {@inheritDoc}
      */    
+    @Override
     public Database readModelFromDatabase(Connection connection, String name) throws DatabaseOperationException
     {
         try
@@ -2772,6 +2661,7 @@ public abstract class PlatformImplBase extends JdbcSupport implements Platform
     /**
      * {@inheritDoc}
      */
+    @Override
     public Database readModelFromDatabase(String name, String catalog, String schema, String[] tableTypes) throws DatabaseOperationException
     {
         Connection connection = borrowConnection();
@@ -2789,6 +2679,7 @@ public abstract class PlatformImplBase extends JdbcSupport implements Platform
     /**
      * {@inheritDoc}
      */
+    @Override
     public Database readModelFromDatabase(Connection connection, String name, String catalog, String schema, String[] tableTypes) throws DatabaseOperationException
     {
         try
@@ -2868,6 +2759,7 @@ public abstract class PlatformImplBase extends JdbcSupport implements Platform
      * @param sqlIndex  The index of the parameter to set in the statement
      * @param dynaBean  The bean of which to take the value
      * @param property  The property of the bean, which also defines the corresponding column
+     * @throws java.sql.SQLException
      */
     protected void setObject(PreparedStatement statement, int sqlIndex, DynaBean dynaBean, SqlDynaProperty property) throws SQLException
     {
@@ -2904,23 +2796,23 @@ public abstract class PlatformImplBase extends JdbcSupport implements Platform
         }
         else if (value instanceof Boolean)
         {
-            statement.setBoolean(sqlIndex, ((Boolean)value).booleanValue());
+            statement.setBoolean(sqlIndex, ((Boolean)value));
         }
         else if (value instanceof Byte)
         {
-            statement.setByte(sqlIndex, ((Byte)value).byteValue());
+            statement.setByte(sqlIndex, ((Byte)value));
         }
         else if (value instanceof Short)
         {
-            statement.setShort(sqlIndex, ((Short)value).shortValue());
+            statement.setShort(sqlIndex, ((Short)value));
         }
         else if (value instanceof Integer)
         {
-            statement.setInt(sqlIndex, ((Integer)value).intValue());
+            statement.setInt(sqlIndex, ((Integer)value));
         }
         else if (value instanceof Long)
         {
-            statement.setLong(sqlIndex, ((Long)value).longValue());
+            statement.setLong(sqlIndex, ((Long)value));
         }
         else if (value instanceof BigDecimal)
         {
@@ -2929,11 +2821,11 @@ public abstract class PlatformImplBase extends JdbcSupport implements Platform
         }
         else if (value instanceof Float)
         {
-            statement.setFloat(sqlIndex, ((Float)value).floatValue());
+            statement.setFloat(sqlIndex, ((Float)value));
         }
         else if (value instanceof Double)
         {
-            statement.setDouble(sqlIndex, ((Double)value).doubleValue());
+            statement.setDouble(sqlIndex, ((Double)value));
         }
         else
         {
@@ -2953,6 +2845,7 @@ public abstract class PlatformImplBase extends JdbcSupport implements Platform
      * @param columnName The name of the column
      * @param table      The table
      * @return The value
+     * @throws java.sql.SQLException
      */
     protected Object getObjectFromResultSet(ResultSet resultSet, String columnName, Table table) throws SQLException
     {
@@ -2994,6 +2887,7 @@ public abstract class PlatformImplBase extends JdbcSupport implements Platform
      * @param column    The column
      * @param idx       The value's index in the result set (starting from 1) 
      * @return The value
+     * @throws java.sql.SQLException
      */
     protected Object getObjectFromResultSet(ResultSet resultSet, Column column, int idx) throws SQLException
     {
@@ -3050,22 +2944,22 @@ public abstract class PlatformImplBase extends JdbcSupport implements Platform
 		        break;
 		    case Types.BIT:
             case Types.BOOLEAN:
-		        value = new Boolean(useIdx ? resultSet.getBoolean(columnIdx) : resultSet.getBoolean(columnName));
+		        value = useIdx ? resultSet.getBoolean(columnIdx) : resultSet.getBoolean(columnName);
 		        break;
 		    case Types.TINYINT:
 		    case Types.SMALLINT:
 		    case Types.INTEGER:
-		        value = new Integer(useIdx ? resultSet.getInt(columnIdx) : resultSet.getInt(columnName));
+		        value = useIdx ? resultSet.getInt(columnIdx) : resultSet.getInt(columnName);
 		        break;
 		    case Types.BIGINT:
-		        value = new Long(useIdx ? resultSet.getLong(columnIdx) : resultSet.getLong(columnName));
+		        value = useIdx ? resultSet.getLong(columnIdx) : resultSet.getLong(columnName);
 		        break;
 		    case Types.REAL:
-		        value = new Float(useIdx ? resultSet.getFloat(columnIdx) : resultSet.getFloat(columnName));
+		        value = useIdx ? resultSet.getFloat(columnIdx) : resultSet.getFloat(columnName);
 		        break;
 		    case Types.FLOAT:
 		    case Types.DOUBLE:
-		        value = new Double(useIdx ? resultSet.getDouble(columnIdx) : resultSet.getDouble(columnName));
+		        value = useIdx ? resultSet.getDouble(columnIdx) : resultSet.getDouble(columnName);
 		        break;
 		    case Types.BINARY:
 		    case Types.VARBINARY:
